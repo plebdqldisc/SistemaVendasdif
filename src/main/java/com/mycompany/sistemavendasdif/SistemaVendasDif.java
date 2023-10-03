@@ -4,13 +4,15 @@
 
 package com.mycompany.sistemavendasdif;
 
+import com.mycompany.ferramentas.BancoDeDadosMySql;
+import com.mycompany.dao.DaoCategoria;
+import java.sql.Connection;
 /**
  *
  * @author arthur.7923
  */
 public class SistemaVendasDif {
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        BancoDeDadosMySql.conectar();
     }
 }
