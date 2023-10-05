@@ -35,6 +35,42 @@ public class DaoCategoria extends BancoDeDadosMySql{
       }
   }
   
+      public Boolean alterar(int id, String novoNome, String novaDescricao){
+        try{
+            sql = "UPDATE CATEGORIA SET NOME = ?, DESCRICAO = ? WHERE ID = ?";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(3, id);
+            getStatement().setString(1, novoNome);
+            getStatement().setString(2, novaDescricao);
+            
+            getStatement().executeUpdate();
+            
+            return true;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public Boolean excluir(int id){
+        try{
+            sql = "DELETE FROM CATEGORIA WHERE ID = ?";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(1, id);
+            
+            getStatement().executeUpdate();
+            
+            return true;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+  
   public ResultSet listarTodos(){
         try{
             sql = "SELECT ID, NOME, IFNULL(DESCRICAO, '') FROM CATEGORIA";

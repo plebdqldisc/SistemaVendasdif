@@ -4,9 +4,14 @@
  */
 package com.mycompany.visao.categoria;
 
+import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.dao.DaoCategoria;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModCategoria;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -200,9 +205,19 @@ public class ListCategoria extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableCategoria);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jcbTipoFiltro.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME", "DESCRIÇÃO", " " }));
@@ -258,6 +273,38 @@ public class ListCategoria extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCategoriaMouseClicked
+if (evt.getClickCount() == 2){
+            ModCategoria modCategoria = new ModCategoria();
+
+            modCategoria.setId(Integer.parseInt(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 0))));
+            modCategoria.setNome(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 1)));
+            modCategoria.setDescricao(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 2)));
+
+            DadosTemporarios.tempObject = (ModCategoria) modCategoria;
+
+            CadCategoria cadCategoria = new CadCategoria();
+            cadCategoria.setVisible(true);
+        }
+    }//GEN-LAST:event_tableCategoriaMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId(Integer.parseInt(tfFiltro.getText()));
+                break;
+            case 2:
+                listarPorNome(tfFiltro.getText());
+                break;
+            case 3:
+                listarPorDescricao(tfFiltro.getText());
+                break;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
