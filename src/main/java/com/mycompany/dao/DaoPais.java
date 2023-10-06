@@ -11,12 +11,11 @@ import static com.mycompany.ferramentas.BancoDeDadosMySql.getStatement;
 import static com.mycompany.ferramentas.BancoDeDadosMySql.setResultado;
 import static com.mycompany.ferramentas.BancoDeDadosMySql.setStatement;
 import java.sql.ResultSet;
-
 /**
  *
  * @author arthur.7923
  */
-public class DaoMarca extends BancoDeDadosMySql{
+public class DaoPais extends BancoDeDadosMySql{
     private String sql;
     
     public Boolean inserir(int id, String nome){
@@ -136,5 +135,4 @@ public class DaoMarca extends BancoDeDadosMySql{
         
         return id;
     }
-    
 }

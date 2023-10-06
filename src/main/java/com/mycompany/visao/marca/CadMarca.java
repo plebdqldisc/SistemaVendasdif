@@ -4,6 +4,13 @@
  */
 package com.mycompany.visao.marca;
 
+import com.mycompany.dao.DaoMarca;
+import com.mycompany.ferramentas.Constantes;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.modelo.ModMarca;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author arthur.7923
@@ -15,8 +22,41 @@ public class CadMarca extends javax.swing.JFrame {
      */
     public CadMarca() {
         initComponents();
+
+        if(!existeDadosTemporarios()){
+            DaoMarca daoMarca = new DaoMarca();
+
+            int id = daoMarca.buscarProximoId(); 
+            if (id > 0)
+                tfId.setText(String.valueOf(id));
+            
+            btnAcao.setText(Constantes.BTN_SALVAR_TEXT);
+            btnExcluir.setVisible(false);
+        }else{
+            btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
+            btnExcluir.setVisible(true);
+        }
+        
+        setLocationRelativeTo(null);
+        
+        tfId.setEnabled(false);
     }
 
+    private Boolean existeDadosTemporarios(){        
+        if(DadosTemporarios.tempObject instanceof ModMarca){
+            int id = ((ModMarca) DadosTemporarios.tempObject).getId();
+            String nome = ((ModMarca) DadosTemporarios.tempObject).getNome();
+            
+            tfId.setText(String.valueOf(id));
+            tfNome.setText(nome);
+        
+            DadosTemporarios.tempObject = null;
+            
+            return true;
+        }else
+            return false;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,9 +69,9 @@ public class CadMarca extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         btnAcao = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
@@ -51,15 +91,22 @@ public class CadMarca extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel1.setText("ID");
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel2.setText("Nome");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                tfIdActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel2.setText("Nome");
+
+        tfNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomeActionPerformed(evt);
+            }
+        });
+
+        btnAcao.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         btnAcao.setText("Salvar");
         btnAcao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +114,13 @@ public class CadMarca extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -77,12 +130,12 @@ public class CadMarca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(162, 162, 162)))
@@ -99,11 +152,11 @@ public class CadMarca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAcao)
@@ -131,14 +184,82 @@ public class CadMarca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_tfNomeActionPerformed
 
     private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
-        // TODO add your handling code here:
+        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT)
+            inserir();
+        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT)
+            alterar();
     }//GEN-LAST:event_btnAcaoActionPerformed
 
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIdActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int escolha = 
+                JOptionPane.showConfirmDialog(
+                        null, 
+                        "Deseja realmente excluir a marca " + tfNome.getText() + "?");
+        
+        if(escolha == JOptionPane.YES_OPTION)
+            excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    
+    private void inserir(){
+        DaoMarca daoMarca = new DaoMarca();
+        
+        if (daoMarca.inserir(Integer.parseInt(tfId.getText()), tfNome.getText())){
+            JOptionPane.showMessageDialog(null, "Marca salva com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar a marca!");
+        }
+    }
+        
+            private void alterar(){
+        DaoMarca daoMarca = new DaoMarca();
+        
+        if (daoMarca.alterar(Integer.parseInt(tfId.getText()), tfNome.getText())){
+            JOptionPane.showMessageDialog(null, "Marca alterada com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a marca!");
+        }
+        
+        ((ListMarca) Formularios.listMarca).listarTodos();
+        
+        dispose();
+    }
+            
+            private void excluir(){
+        DaoMarca daoMarca = new DaoMarca();
+        
+        if (daoMarca.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Marca " + tfNome.getText() + " excluída com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir a marca!");
+        }
+        
+        ((ListMarca) Formularios.listMarca).listarTodos();
+        
+        dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -181,7 +302,7 @@ public class CadMarca extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 }

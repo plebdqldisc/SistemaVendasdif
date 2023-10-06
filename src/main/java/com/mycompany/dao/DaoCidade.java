@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  *
  * @author arthur.7923
  */
-public class DaoMarca extends BancoDeDadosMySql{
+public class DaoCidade extends BancoDeDadosMySql{
     private String sql;
     
     public Boolean inserir(int id, String nome){
@@ -136,5 +136,4 @@ public class DaoMarca extends BancoDeDadosMySql{
         
         return id;
     }
-    
 }

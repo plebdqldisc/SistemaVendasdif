@@ -4,6 +4,12 @@
  */
 package com.mycompany.visao.marca;
 
+import com.mycompany.dao.DaoMarca;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModMarca;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author arthur.7923
@@ -15,6 +21,93 @@ public class ListMarca extends javax.swing.JFrame {
      */
     public ListMarca() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        listarTodos();
+    }
+    
+    public void listarTodos(){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableMarca.getModel();
+            
+            tableMarca.setModel(defaultTableModel);
+            
+            DaoMarca daoMarca = new DaoMarca();
+            
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoMarca.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                
+                defaultTableModel.addRow(new Object[] {id, nome});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorId(int pId){
+        try{
+           
+            DefaultTableModel defaultTableModel = new DefaultTableModel();
+
+            defaultTableModel.addColumn("ID");
+            defaultTableModel.addColumn("NOME");
+            
+            
+            tableMarca.setModel(defaultTableModel);
+
+            DaoMarca daoMarca = new DaoMarca();
+
+            
+            ResultSet resultSet = daoMarca.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                
+                defaultTableModel.addRow(new Object[]{id, nome});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNome(String pNome){
+        try{
+            
+            DefaultTableModel defaultTableModel = new DefaultTableModel();
+
+            defaultTableModel.addColumn("ID");
+            defaultTableModel.addColumn("NOME");
+            
+            
+            tableMarca.setModel(defaultTableModel);
+
+            DaoMarca daoMarca = new DaoMarca();
+
+            
+            ResultSet resultSet = daoMarca.listarPorNome(pNome);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                
+                defaultTableModel.addRow(new Object[]{id, nome});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -27,18 +120,85 @@ public class ListMarca extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableMarca = new javax.swing.JTable();
+        tfFiltro = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jcbTipoFiltro.setEditable(true);
+        jcbTipoFiltro.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME" }));
+
+        tableMarca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NOME"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableMarca.setToolTipText("");
+        tableMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMarcaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableMarca);
+
+        tfFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFiltroActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscar))
+                        .addGap(0, 90, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -60,6 +220,38 @@ public class ListMarca extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFiltroActionPerformed
+
+    private void tableMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcaMouseClicked
+        if (evt.getClickCount() == 2){
+            ModMarca modMarca = new ModMarca();
+
+            modMarca.setId(Integer.parseInt(String.valueOf(tableMarca.getValueAt(tableMarca.getSelectedRow(), 0))));
+            modMarca.setNome(String.valueOf(tableMarca.getValueAt(tableMarca.getSelectedRow(), 1)));
+
+            DadosTemporarios.tempObject = (ModMarca) modMarca;
+
+            CadMarca cadMarca = new CadMarca();
+            cadMarca.setVisible(true);
+        }
+    }//GEN-LAST:event_tableMarcaMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId(Integer.parseInt(tfFiltro.getText()));
+                break;
+            case 2:
+                listarPorNome(tfFiltro.getText());
+                break;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,6 +289,11 @@ public class ListMarca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tableMarca;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }
