@@ -20,7 +20,7 @@ public class DaoPais extends BancoDeDadosMySql{
     
     public Boolean inserir(int id, String nome){
       try{
-          sql = "INSERT INTO MARCA (ID, NOME) VALUES (?, ?)";
+          sql = "INSERT INTO PAIS (ID, NOME) VALUES (?, ?)";
           
           setStatement(getConexao().prepareStatement(sql));
           
@@ -37,7 +37,7 @@ public class DaoPais extends BancoDeDadosMySql{
   }
     public Boolean alterar(int id, String novoNome){
         try{
-            sql = "UPDATE MARCA SET NOME = ?, WHERE ID = ?";
+            sql = "UPDATE PAIS SET NOME = ?, WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -55,7 +55,7 @@ public class DaoPais extends BancoDeDadosMySql{
     
     public Boolean excluir(int id){
         try{
-            sql = "DELETE FROM MARCA WHERE ID = ?";
+            sql = "DELETE FROM PAIS WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -72,7 +72,7 @@ public class DaoPais extends BancoDeDadosMySql{
   
   public ResultSet listarTodos(){
         try{
-            sql = "(SELECT ID, NOME) FROM MARCA";
+            sql = "(SELECT ID, NOME) FROM PAIS";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -86,7 +86,7 @@ public class DaoPais extends BancoDeDadosMySql{
     
     public ResultSet listarPorId(int id){
         try{
-            sql = "(SELECT ID, NOME) FROM MARCA WHERE ID = ?";
+            sql = "(SELECT ID, NOME) FROM PAIS WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -102,7 +102,7 @@ public class DaoPais extends BancoDeDadosMySql{
     
     public ResultSet listarPorNome(String nome){
         try{
-            sql = "SELECT ID, NOME FROM MARCA WHERE NOME LIKE ?";
+            sql = "SELECT ID, NOME FROM PAIS WHERE NOME LIKE ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -120,7 +120,7 @@ public class DaoPais extends BancoDeDadosMySql{
         int id = -1;
         
         try{
-            sql = "SELECT MAX(ID) + 1 FROM MARCA";
+            sql = "SELECT MAX(ID) + 1 FROM PAIS";
             
             setStatement(getConexao().prepareStatement(sql));
             

@@ -10,6 +10,8 @@ import com.mycompany.visao.categoria.CadCategoria;
 import com.mycompany.visao.categoria.ListCategoria;
 import com.mycompany.visao.marca.CadMarca;
 import com.mycompany.visao.marca.ListMarca;
+import com.mycompany.visao.pais.CadPais;
+import com.mycompany.visao.pais.ListPais;
 import javax.swing.JOptionPane;
 
 /**
@@ -222,7 +224,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCadastroEstadoActionPerformed
 
     private void miCadastroPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroPaisActionPerformed
-        // TODO add your handling code here:
+         if(Formularios.cadPais == null)
+            Formularios.cadPais = new CadPais();
+         
+         Formularios.cadPais.setVisible(true);
     }//GEN-LAST:event_miCadastroPaisActionPerformed
 
     private void miConsultaEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaEstadoActionPerformed
@@ -234,7 +239,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCadastroCidadeActionPerformed
 
     private void miConsultaPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaPaisActionPerformed
-        // TODO add your handling code here:
+         Formularios.listPais = new ListPais();
+        Formularios.listPais.setVisible(true);
     }//GEN-LAST:event_miConsultaPaisActionPerformed
 
     private void miConsultaCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaCidadeActionPerformed

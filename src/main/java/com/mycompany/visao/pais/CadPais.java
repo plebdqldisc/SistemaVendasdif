@@ -4,6 +4,13 @@
  */
 package com.mycompany.visao.pais;
 
+import com.mycompany.dao.DaoPais;
+import com.mycompany.ferramentas.Constantes;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.modelo.ModPais;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author arthur.7923
@@ -15,6 +22,43 @@ public class CadPais extends javax.swing.JFrame {
      */
     public CadPais() {
         initComponents();
+        
+        if(!existeDadosTemporarios()){
+            DaoPais daoPais = new DaoPais();
+
+            int id = daoPais.buscarProximoId(); 
+            if (id > 0)
+                tfId.setText(String.valueOf(id));
+            
+            btnAcao.setText(Constantes.BTN_SALVAR_TEXT);
+            btnExcluir.setVisible(false);
+        }else{
+            btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
+            btnExcluir.setVisible(true);
+        }
+        
+        
+        
+        setLocationRelativeTo(null);
+        
+        tfId.setEnabled(false);
+    }
+        
+    private Boolean existeDadosTemporarios(){        
+        if(DadosTemporarios.tempObject instanceof ModPais){
+            int id = ((ModPais) DadosTemporarios.tempObject).getId();
+            String nome = ((ModPais) DadosTemporarios.tempObject).getNome();
+            
+            
+            tfId.setText(String.valueOf(id));
+            tfNome.setText(nome);
+            
+        
+            DadosTemporarios.tempObject = null;
+            
+            return true;
+        }else
+            return false;
     }
 
     /**
@@ -31,10 +75,10 @@ public class CadPais extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
-        btnSalvar = new javax.swing.JButton();
+        btnAcao = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel1.setText("ID");
@@ -42,9 +86,19 @@ public class CadPais extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel2.setText("NOME");
 
-        btnSalvar.setText("Salvar");
+        btnAcao.setText("Salvar");
+        btnAcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcaoActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,7 +108,7 @@ public class CadPais extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
+                        .addComponent(btnAcao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir))
                     .addComponent(jLabel2)
@@ -76,7 +130,7 @@ public class CadPais extends javax.swing.JFrame {
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
+                    .addComponent(btnAcao)
                     .addComponent(btnExcluir))
                 .addContainerGap())
         );
@@ -101,6 +155,73 @@ public class CadPais extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
+        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT)
+            inserir();
+        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT)
+            alterar();
+    }//GEN-LAST:event_btnAcaoActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int escolha = 
+                JOptionPane.showConfirmDialog(
+                        null, 
+                        "Deseja realmente excluir o país " + tfNome.getText() + "?");
+        
+        if(escolha == JOptionPane.YES_OPTION)
+            excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void inserir(){
+        DaoPais daoPais = new DaoPais();
+        
+        if (daoPais.inserir(Integer.parseInt(tfId.getText()), tfNome.getText())){
+            JOptionPane.showMessageDialog(null, "País salvo com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar a país!");
+        }
+    }
+        
+            private void alterar(){
+        DaoPais daoPais = new DaoPais();
+        
+        if (daoPais.alterar(Integer.parseInt(tfId.getText()), tfNome.getText())){
+            JOptionPane.showMessageDialog(null, "País alterado com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar o país!");
+        }
+        
+        ((ListPais) Formularios.listPais).listarTodos();
+        
+        dispose();
+    }
+            
+            private void excluir(){
+        DaoPais daoPais = new DaoPais();
+        
+        if (daoPais.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "País " + tfNome.getText() + " excluído com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o país!");
+        }
+        
+        ((ListPais) Formularios.listPais).listarTodos();
+        
+        dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -137,8 +258,8 @@ public class CadPais extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAcao;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

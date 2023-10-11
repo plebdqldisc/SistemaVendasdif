@@ -25,42 +25,42 @@ public ModEstado(int id, int id_pais, String nome, String uf) {
         
     }
     
-    public int getId() {
+    public int getid() {
         return id;
     }
     
-    public void setId(int id) {
+    public void setid(int id) {
         this.id = id;
     }
     
-    public int getId_pais() {
+    public int getid_pais() {
         return id_pais;
     }
     
-    public void setId_pais(int id) {
+    public void setid_pais(int id_pais) {
         this.id_pais = id_pais;
     }
     
-    public String getNome(){
+    public String getnome(){
         return nome;
     }
     
-    public void setNome(String nome) {
+    public void setnome(String nome) {
         this.nome = nome;
     }
     
-    public String getUf() {
+    public String getuf() {
        return uf;
     }
     
-    public void setUf (String uf) {
+    public void setuf (String uf) {
         this.uf = uf;
     }
     
 
     @Override
     public String toString() {
-        return "Pais{" + "id=" + id + ", " + "id_pais=" + id_pais + ", nome=" + nome + ", " + "uf=" + uf + '}';
+        return "ModEstado{" + "id=" + id + ", id_pais=" + id_pais + ", nome=" + nome + ", uf=" + uf + '}';
     }
 }
 
