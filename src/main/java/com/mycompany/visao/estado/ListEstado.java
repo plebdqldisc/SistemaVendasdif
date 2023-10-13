@@ -7,6 +7,7 @@ package com.mycompany.visao.estado;
 import com.mycompany.dao.DaoEstado;
 import com.mycompany.dao.DaoPais;
 import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModEstado;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -32,57 +33,50 @@ public class ListEstado extends javax.swing.JFrame {
     
     public void listarTodos(){
         try{
-            //Define o model da tabela.
+            //Pega o model da tabela definido no design
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstado.getModel();
             
             tableEstado.setModel(defaultTableModel);
-            
+
             DaoEstado daoEstado = new DaoEstado();
-            
+
             //Atribui o resultset retornado a uma variável para ser usada.
             ResultSet resultSet = daoEstado.listarTodos();
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
-                String id_pais = resultSet.getString(2);
+                String pais = resultSet.getString(2);
                 String nome = resultSet.getString(3);
-                String uf = resultSet.getString(4);
+                String uf =  resultSet.getString(4);
                 
-                
-                defaultTableModel.addRow(new Object[] {id, id_pais, nome, uf});
+                defaultTableModel.addRow(new Object[]{id, pais, nome, uf});
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            
         }
     }
     
     public void listarPorId(int pId){
         try{
-           
-            DefaultTableModel defaultTableModel = new DefaultTableModel();
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstado.getModel();
 
-            defaultTableModel.addColumn("ID");
-            defaultTableModel.addColumn("ID_PAIS");
-            defaultTableModel.addColumn("NOME");
-            defaultTableModel.addColumn("UF");
-            
-            
             tableEstado.setModel(defaultTableModel);
 
             DaoEstado daoEstado = new DaoEstado();
 
-            
+            //Atribui o resultset retornado a uma variável para ser usada.
             ResultSet resultSet = daoEstado.listarPorId(pId);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
-                String id_pais = resultSet.getString(2);
+                String pais = resultSet.getString(2);
                 String nome = resultSet.getString(3);
                 String uf = resultSet.getString(4);
                 
-                defaultTableModel.addRow(new Object[]{id, id_pais, nome, uf});
+                defaultTableModel.addRow(new Object[]{id, pais, nome, uf});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -91,29 +85,76 @@ public class ListEstado extends javax.swing.JFrame {
     
     public void listarPorNome(String pNome){
         try{
-            
-            DefaultTableModel defaultTableModel = new DefaultTableModel();
-
-            defaultTableModel.addColumn("ID");
-            defaultTableModel.addColumn("ID_PAIS");
-            defaultTableModel.addColumn("NOME");
-           defaultTableModel.addColumn("UF");
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstado.getModel();
             
             tableEstado.setModel(defaultTableModel);
 
             DaoEstado daoEstado = new DaoEstado();
 
-            
+            //Atribui o resultset retornado a uma variável para ser usada.
             ResultSet resultSet = daoEstado.listarPorNome(pNome);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
-                String id_pais = resultSet.getString(2);
+                String pais = resultSet.getString(2);
                 String nome = resultSet.getString(3);
                 String uf = resultSet.getString(4);
                 
-                defaultTableModel.addRow(new Object[]{id, id_pais, nome, uf});
+                defaultTableModel.addRow(new Object[]{id, pais, nome, uf});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorPais(String pPais){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstado.getModel();
+            
+            tableEstado.setModel(defaultTableModel);
+
+            DaoEstado daoEstado = new DaoEstado();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoEstado.listarPorPais(pPais);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String pais = resultSet.getString(2);
+                String nome = resultSet.getString(3);
+                String uf = resultSet.getString(4);
+                
+                defaultTableModel.addRow(new Object[]{id, pais, nome, uf});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorUf(String pUf){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstado.getModel();
+            
+            tableEstado.setModel(defaultTableModel);
+
+            DaoEstado daoEstado = new DaoEstado();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoEstado.listarPorUf(pUf);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String pais = resultSet.getString(2);
+                String nome = resultSet.getString(3);
+                String uf = resultSet.getString(4);
+                
+                defaultTableModel.addRow(new Object[]{id, pais, nome, uf});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -137,9 +178,14 @@ public class ListEstado extends javax.swing.JFrame {
         tableEstado = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
-        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME" }));
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME", "PAIS", "UF" }));
 
         tableEstado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,20 +222,19 @@ public class ListEstado extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(7, Short.MAX_VALUE)
+                        .addGap(0, 1, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
+                                .addGap(8, 8, 8)
                                 .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnBuscar)))
+                            .addComponent(btnBuscar))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -198,11 +243,11 @@ public class ListEstado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addContainerGap())
         );
@@ -228,18 +273,30 @@ public class ListEstado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableEstadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEstadoMouseClicked
-        if (evt.getClickCount() == 2){
-            ModEstado modEstado = new ModEstado();
+        try{
+            if (evt.getClickCount() == 2){
+                ModEstado modEstado = new ModEstado();
 
-            modEstado.setid(Integer.parseInt(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 0))));
-            
-            modEstado.setnome(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 2)));
-            modEstado.setuf(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 3)));
-            
-            DadosTemporarios.tempObject = (ModEstado) modEstado;
+                modEstado.setid(Integer.parseInt(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 0))));
+                modEstado.setnome(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 2)));
+                modEstado.setuf(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 3)));
+                
+                DaoPais daoPais = new DaoPais();
+                ResultSet resultSet = daoPais.listarPorNome(String.valueOf(tableEstado.getValueAt(tableEstado.getSelectedRow(), 1)));
 
-            CadEstado cadEstado = new CadEstado();
-            cadEstado.setVisible(true);
+                int pId_pais = -1;
+                while(resultSet.next())
+                    pId_pais = resultSet.getInt("ID");
+
+                modEstado.setid_pais(pId_pais);
+                
+                DadosTemporarios.tempObject = (ModEstado) modEstado;
+
+                CadEstado cadEstado = new CadEstado();
+                cadEstado.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_tableEstadoMouseClicked
 
@@ -252,10 +309,20 @@ public class ListEstado extends javax.swing.JFrame {
                 listarPorId(Integer.parseInt(tfFiltro.getText()));
                 break;
             case 2:
+                listarPorPais(tfFiltro.getText());
+                break;
+            case 3:
                 listarPorNome(tfFiltro.getText());
                 break;
-       }
+            case 4:
+                listarPorUf(tfFiltro.getText());
+                break;
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.listEstado = null;
+    }//GEN-LAST:event_formWindowClosed
 
     
     

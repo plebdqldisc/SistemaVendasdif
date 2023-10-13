@@ -37,7 +37,7 @@ public ModEstado(int id, int id_pais, String nome, String uf) {
         return id_pais;
     }
     
-    public void setid_pais(int id_pais) {
+    public void setid_pais(int pId_pais) {
         this.id_pais = id_pais;
     }
     

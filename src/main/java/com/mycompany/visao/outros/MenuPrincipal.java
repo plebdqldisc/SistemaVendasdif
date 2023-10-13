@@ -8,6 +8,10 @@ import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.visao.categoria.CadCategoria;
 import com.mycompany.visao.categoria.ListCategoria;
+import com.mycompany.visao.cidade.CadCidade;
+import com.mycompany.visao.cidade.ListCidade;
+import com.mycompany.visao.estado.CadEstado;
+import com.mycompany.visao.estado.ListEstado;
 import com.mycompany.visao.marca.CadMarca;
 import com.mycompany.visao.marca.ListMarca;
 import com.mycompany.visao.pais.CadPais;
@@ -220,7 +224,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultaMarcaActionPerformed
 
     private void miCadastroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroEstadoActionPerformed
-        // TODO add your handling code here:
+        if(Formularios.cadEstado == null)
+            Formularios.cadEstado = new CadEstado();
+         
+         Formularios.cadEstado.setVisible(true);
     }//GEN-LAST:event_miCadastroEstadoActionPerformed
 
     private void miCadastroPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroPaisActionPerformed
@@ -231,11 +238,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCadastroPaisActionPerformed
 
     private void miConsultaEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaEstadoActionPerformed
-        // TODO add your handling code here:
+        Formularios.listEstado = new ListEstado();
+        Formularios.listEstado.setVisible(true);
     }//GEN-LAST:event_miConsultaEstadoActionPerformed
 
     private void miCadastroCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroCidadeActionPerformed
-        // TODO add your handling code here:
+        if(Formularios.cadCidade == null)
+            Formularios.cadCidade = new CadCidade();
+       
+        Formularios.cadCidade.setVisible(true);
     }//GEN-LAST:event_miCadastroCidadeActionPerformed
 
     private void miConsultaPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaPaisActionPerformed
@@ -244,7 +255,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultaPaisActionPerformed
 
     private void miConsultaCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaCidadeActionPerformed
-        // TODO add your handling code here:
+        Formularios.listCidade = new ListCidade();
+        Formularios.listCidade.setVisible(true);
     }//GEN-LAST:event_miConsultaCidadeActionPerformed
 
     /**

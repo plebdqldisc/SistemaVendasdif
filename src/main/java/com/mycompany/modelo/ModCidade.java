@@ -35,7 +35,7 @@ public ModCidade(int id, int id_estado, String nome) {
         return id_estado;
     }
     
-    public void setId_estado(int id) {
+    public void setId_estado(int id_estado) {
         this.id_estado = id_estado;
     }
     
@@ -48,6 +48,6 @@ public ModCidade(int id, int id_estado, String nome) {
     }
     @Override
     public String toString() {
-        return "Pais{" + "id=" + id + ", " + "id_estado=" + id_estado + ", nome=" + nome + '}';
+        return "Pais{" + "id=" + id + ", id_estado=" + id_estado + ", nome=" + nome + '}';
     }
 }

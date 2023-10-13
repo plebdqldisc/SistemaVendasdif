@@ -76,7 +76,7 @@ public class CadEstado extends javax.swing.JFrame {
                 Integer.parseInt(tfId_pais.getText()),
                 tfNome.getText(),
                 tfUf.getText())){
-            JOptionPane.showMessageDialog(null, "País salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Estado salvo com sucesso!");
             
             tfId.setText("");
             tfId_pais.setText("");
@@ -84,7 +84,7 @@ public class CadEstado extends javax.swing.JFrame {
             tfUf.setText("");
             
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar a país!");
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar o Estado!");
         }
     }
         
@@ -95,7 +95,7 @@ public class CadEstado extends javax.swing.JFrame {
                 Integer.parseInt(tfId_pais.getText()),
                 tfNome.getText(),
                 tfUf.getText())){
-            JOptionPane.showMessageDialog(null, "País alterado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Estado alterado com sucesso!");
             
             tfId.setText("");
             tfId_pais.setText("");
@@ -104,7 +104,7 @@ public class CadEstado extends javax.swing.JFrame {
             
             
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o país!");
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar o Estado!");
         }
         
         ((ListEstado) Formularios.listEstado).listarTodos();
@@ -116,13 +116,13 @@ public class CadEstado extends javax.swing.JFrame {
         DaoEstado daoEstado = new DaoEstado();
         
         if (daoEstado.excluir(Integer.parseInt(tfId.getText()))){
-            JOptionPane.showMessageDialog(null, "País " + tfNome.getText() + " excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Estado " + tfNome.getText() + " excluído com sucesso!");
             
             tfId.setText("");
             tfNome.setText("");
             
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível excluir o país!");
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir o Estado!");
         }
         
         ((ListEstado) Formularios.listPais).listarTodos();
@@ -190,7 +190,7 @@ public class CadEstado extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -229,7 +229,7 @@ public class CadEstado extends javax.swing.JFrame {
             }
         });
 
-        jcbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Estados Unidos", "Canadá", "França", "Japão", "Argentina", "Austrália", "Índia", "México", "Alemanha" }));
         jcbPais.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbPaisItemStateChanged(evt);
@@ -325,7 +325,7 @@ public class CadEstado extends javax.swing.JFrame {
         int escolha = 
                 JOptionPane.showConfirmDialog(
                         null, 
-                        "Deseja realmente excluir o país " + tfNome.getText() + "?");
+                        "Deseja realmente excluir o Estado " + tfNome.getText() + "?");
         
         if(escolha == JOptionPane.YES_OPTION)
             excluir();

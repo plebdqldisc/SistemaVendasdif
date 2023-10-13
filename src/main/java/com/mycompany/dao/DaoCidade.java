@@ -19,14 +19,15 @@ import java.sql.ResultSet;
 public class DaoCidade extends BancoDeDadosMySql{
     private String sql;
     
-    public Boolean inserir(int id, String nome){
+    public Boolean inserir(int id, int id_estado, String nome){
       try{
-          sql = "INSERT INTO MARCA (ID, NOME) VALUES (?, ?)";
+          sql = "INSERT INTO CIDADE (ID, ID_ESTADO, NOME) VALUES (?, ?, ?)";
           
           setStatement(getConexao().prepareStatement(sql));
           
           getStatement().setInt(1, id);
-          getStatement().setString(2, nome);
+          getStatement().setInt(2, id_estado);
+          getStatement().setString(3, nome);
           
           getStatement().executeUpdate();
           
@@ -36,14 +37,15 @@ public class DaoCidade extends BancoDeDadosMySql{
           return false;
       }
   }
-    public Boolean alterar(int id, String novoNome){
+     public Boolean alterar(int id, int novoId_estado, String novoNome){
         try{
-            sql = "UPDATE MARCA SET NOME = ?, WHERE ID = ?";
+            sql = "UPDATE CIDADE SET ID_ESTADO = ?, NOME = ?  WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(3, id);
-            getStatement().setString(1, novoNome);
+            getStatement().setInt(1, novoId_estado);
+            getStatement().setString(2, novoNome);
 
             getStatement().executeUpdate();
             
@@ -56,7 +58,7 @@ public class DaoCidade extends BancoDeDadosMySql{
     
     public Boolean excluir(int id){
         try{
-            sql = "DELETE FROM MARCA WHERE ID = ?";
+            sql = "DELETE FROM CIDADE WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -71,9 +73,18 @@ public class DaoCidade extends BancoDeDadosMySql{
         }
     }
   
-  public ResultSet listarTodos(){
+    public ResultSet listarTodos(){
         try{
-            sql = "(SELECT ID, NOME) FROM MARCA";
+            sql = 
+                " SELECT                    " +
+                "   CID.ID AS ID,           " +
+                "   EST.NOME AS ESTADO,     " +
+                "   CID.NOME AS CIDADE,     " +
+                "   EST.UF                  " +
+                " FROM                      " +
+                "   CIDADE CID              " +
+                " JOIN ESTADO EST ON        " +
+                "   EST.ID = CID.ID_ESTADO  " ;
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -87,7 +98,18 @@ public class DaoCidade extends BancoDeDadosMySql{
     
     public ResultSet listarPorId(int id){
         try{
-            sql = "(SELECT ID, NOME) FROM MARCA WHERE ID = ?";
+            sql = 
+                " SELECT                    " +
+                "   CID.ID AS ID,           " +
+                "   EST.NOME AS ESTADO,     " +
+                "   CID.NOME AS CIDADE,     " +
+                "   EST.UF                  " +
+                " FROM                      " +
+                "   CIDADE CID              " +
+                " JOIN ESTADO EST ON        " +
+                "   EST.ID = CID.ID_ESTADO  " +
+                " WHERE                     " +
+                "   CID.ID = ?              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -101,9 +123,47 @@ public class DaoCidade extends BancoDeDadosMySql{
         return getResultado();
     }
     
+    public ResultSet listarPorEstado(String estado){
+        try{
+            sql = 
+                " SELECT                    " +
+                "   CID.ID AS ID,           " +
+                "   EST.NOME AS ESTADO,     " +
+                "   CID.NOME AS CIDADE,     " +
+                "   EST.UF                  " +
+                " FROM                      " +
+                "   CIDADE CID              " +
+                " JOIN ESTADO EST ON        " +
+                "   EST.ID = CID.ID_ESTADO  " +
+                " WHERE                     " +
+                "   EST.NOME LIKE ?         ";;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, estado + "%");
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
     public ResultSet listarPorNome(String nome){
         try{
-            sql = "SELECT ID, NOME FROM MARCA WHERE NOME LIKE ?";
+            sql = 
+                " SELECT                    " +
+                "   CID.ID AS ID,           " +
+                "   EST.NOME AS ESTADO,     " +
+                "   CID.NOME AS CIDADE,     " +
+                "   EST.UF                  " +
+                " FROM                      " +
+                "   CIDADE CID              " +
+                " JOIN ESTADO EST ON        " +
+                "   EST.ID = CID.ID_ESTADO  " +
+                " WHERE                     " +
+                "   CID.NOME LIKE ?         ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -117,11 +177,38 @@ public class DaoCidade extends BancoDeDadosMySql{
         return getResultado();
     }
     
+    public ResultSet listarPorUf(String Uf){
+        try{
+            sql = 
+                " SELECT                    " +
+                "   CID.ID AS ID,           " +
+                "   EST.NOME AS ESTADO,     " +
+                "   CID.NOME AS CIDADE,     " +
+                "   EST.UF                  " +
+                " FROM                      " +
+                "   CIDADE CID              " +
+                " JOIN ESTADO EST ON        " +
+                "   EST.ID = CID.ID_ESTADO  " +
+                " WHERE                     " +
+                "   EST.UF = ?              ";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, Uf + "%");
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
     public int buscarProximoId(){
         int id = -1;
         
         try{
-            sql = "SELECT MAX(ID) + 1 FROM MARCA";
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CIDADE";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -137,3 +224,4 @@ public class DaoCidade extends BancoDeDadosMySql{
         return id;
     }
 }
+
