@@ -4,6 +4,15 @@
  */
 package com.mycompany.visao.produto;
 
+import com.mycompany.dao.DaoCategoria;
+import com.mycompany.dao.DaoMarca;
+import com.mycompany.dao.DaoProduto;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModCategoria;
+import com.mycompany.modelo.ModProduto;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author arthur.7923
@@ -15,6 +24,150 @@ public class ListProduto extends javax.swing.JFrame {
      */
     public ListProduto() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        listarTodos();
+        
+    }
+    
+    public void listarTodos(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+            
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String id_categoria = resultSet.getString(2);
+                String id_marca = resultSet.getString(3);
+                String nome = resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    public void listarPorId(int pId){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+           while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String id_categoria = resultSet.getString(2);
+                String id_marca = resultSet.getString(3);
+                String nome = resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorCategoria(int pCategoria){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorId(pCategoria);
+            
+            defaultTableModel.setRowCount(0);
+           while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String id_categoria = resultSet.getString(2);
+                String id_marca = resultSet.getString(3);
+                String nome = resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorMarca(int pMarca){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+                ResultSet resultSet = daoProduto.listarPorId(pMarca);
+            
+            defaultTableModel.setRowCount(0);
+           while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String id_categoria = resultSet.getString(2);
+                String id_marca = resultSet.getString(3);
+                String nome = resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNome(int pNome){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+                ResultSet resultSet = daoProduto.listarPorId(pNome);
+            
+            defaultTableModel.setRowCount(0);
+           while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String id_categoria = resultSet.getString(2);
+                String id_marca = resultSet.getString(3);
+                String nome = resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -29,14 +182,14 @@ public class ListProduto extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableProduto = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "CATEGORIA", "MARCA", "NOME" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -52,7 +205,12 @@ public class ListProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tableProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableProduto);
 
         jButton1.setText("Buscar");
 
@@ -89,6 +247,44 @@ public class ListProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProdutoMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                ModProduto modProduto = new ModProduto();
+
+                modProduto.setid(Integer.parseInt(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 0))));
+                modProduto.setid_marca(Integer.parseInt(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 2))));
+                modProduto.setnome(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 3)));
+                modProduto.setdescricao(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 4)));
+                
+                DaoCategoria daoCategoria = new DaoCategoria();
+                ResultSet resultSet = daoCategoria.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto .getSelectedRow(), 1)));
+
+                int pIdcategoria = -1;
+                while(resultSet.next())
+                    pIdcategoria = resultSet.getInt("ID");
+
+                ModProduto.setid_categoria(pIdcategoria);
+                
+                DaoMarca daoMarca = new DaoMarca();
+                ResultSet resultSet = daoMarca.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto .getSelectedRow(), 2)));
+
+                int pIdmarca = -2;
+                while(resultSet.next())
+                    pIdmarca = resultSet.getInt("ID");
+
+                ModProduto.setid_Marca(pIdmarca);
+                
+                DadosTemporarios.tempObject = (ModProduto) modProduto;
+
+                CadProduto cadProduto = new CadProduto();
+                cadProduto.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tableProdutoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -129,7 +325,7 @@ public class ListProduto extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tableProduto;
     // End of variables declaration//GEN-END:variables
 }

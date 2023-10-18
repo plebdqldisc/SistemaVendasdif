@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 public class DaoProduto extends BancoDeDadosMySql{
     private String sql;
     
-        public Boolean inserir(int id,  int id_categoria, int id_marca, String nome, String descricao, Double preco){
+        public Boolean inserir(int id,  int id_categoria, int id_marca, String nome, String descricao, String preco){
       try{
           sql = "INSERT INTO PRODUTO (id, id_categoria, id_marca, nome, descricao, preco) VALUES (?, ?, ?, ?, ?, ?)";
           
@@ -35,7 +35,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           
           getStatement().setString(5, descricao);
           
-          getStatement().setDouble(6, preco);
+          getStatement().setString(6, preco);
           
           getStatement().executeUpdate();
           
@@ -45,7 +45,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           return false;
       }
   }
-    public Boolean alterar(int id,  int Novoid_categoria, int Novoid_marca, String Novonome, String Novadescricao, Double Novopreco){
+    public Boolean alterar(int id,  int Novoid_categoria, int Novoid_marca, String Novonome, String Novadescricao, String Novopreco){
       try{
           sql = "UPDATE PRODUTO SET ID_CATEGORIA = ?, ID_MARCA = ?, NOME = ?, DESCRICAO = ?, PRECO = ?, WHERE ID = ?";
           
@@ -61,7 +61,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           
           getStatement().setString(5, Novadescricao);
           
-          getStatement().setDouble(6, Novopreco);
+          getStatement().setString(6, Novopreco);
           
           getStatement().executeUpdate();
           
@@ -239,5 +239,23 @@ public class DaoProduto extends BancoDeDadosMySql{
         
         return getResultado();
     }
-    
+    public int buscarProximoId(){
+        int id = -1;
+        
+        try{
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM PRODUTO";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            setResultado(getStatement().executeQuery());
+            
+            getResultado().next(); //Move para o primeiro registro.
+            
+            id = getResultado().getInt(1); //Pega o valor retornado na consulta
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return id;
+    }
 }

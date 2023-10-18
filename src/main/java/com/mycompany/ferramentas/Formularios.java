@@ -26,4 +26,7 @@ public class Formularios {
         public static JFrame cadCidade;
     public static JFrame listCidade;
     
+        public static JFrame cadProduto;
+    public static JFrame listProduto;
+    
 }

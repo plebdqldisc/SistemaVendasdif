@@ -14,12 +14,12 @@ public class ModProduto {
     private int id_marca;
     private String nome;
     private String descricao;
-    private Double preco;
+    private String preco;
     
     public ModProduto () {
 }
 
-public ModProduto(int id, int id_categoria, int id_marca, String nome, String descricao, Double preco) {
+public ModProduto(int id, int id_categoria, int id_marca, String nome, String descricao, String preco) {
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_marca = id_marca;
@@ -29,51 +29,51 @@ public ModProduto(int id, int id_categoria, int id_marca, String nome, String de
         
     }
     
-    public int getId() {
+    public int getid() {
         return id;
     }
     
-    public void setId(int id) {
+    public void setid(int id) {
         this.id = id;
     }
     
-    public int getId_categoria() {
+    public int getid_categoria() {
         return id_categoria;
     }
     
-    public void setId_categoria(int id_categoria) {
+    public void setid_categoria(int pIdcategoria) {
         this.id_categoria = id_categoria;
     }
     
-    public int getId_marca() {
+    public int getid_marca() {
         return id_marca;
     }
     
-    public void setId_marca(int id_marca) {
+    public void setid_marca(int pId_marca) {
         this.id_marca = id_marca;
     }
     
-    public String getNome(){
+    public String getnome(){
         return nome;
     }
     
-    public void setNome(String nome) {
+    public void setnome(String nome) {
         this.nome = nome;
     }
     
-    public String getDescricao() {
+    public String getdescricao() {
        return descricao;
     }
     
-    public void setDescricao (String descricao) {
+    public void setdescricao (String descricao) {
         this.descricao = descricao;
     }
     
-    public Double getPreco(){
+    public String getpreco(){
         return preco;
     }
     
-    public void setPreco (Double preco) {
+    public void setpreco (String preco) {
         this.preco = preco;
     }
     
