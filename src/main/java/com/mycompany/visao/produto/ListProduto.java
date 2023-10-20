@@ -86,7 +86,7 @@ public class ListProduto extends javax.swing.JFrame {
         }
     }
     
-    public void listarPorCategoria(int pCategoria){
+    public void listarPorCategoria(String pCategoria){
         try{
             //Define o model da tabela.
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
@@ -96,7 +96,7 @@ public class ListProduto extends javax.swing.JFrame {
             DaoProduto daoProduto = new DaoProduto();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-            ResultSet resultSet = daoProduto.listarPorId(pCategoria);
+            ResultSet resultSet = daoProduto.listarPorCategoria(pCategoria);
             
             defaultTableModel.setRowCount(0);
            while (resultSet.next()){
@@ -114,7 +114,7 @@ public class ListProduto extends javax.swing.JFrame {
         }
     }
     
-    public void listarPorMarca(int pMarca){
+    public void listarPorMarca(String pMarca){
         try{
             //Define o model da tabela.
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
@@ -124,7 +124,7 @@ public class ListProduto extends javax.swing.JFrame {
             DaoProduto daoProduto = new DaoProduto();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-                ResultSet resultSet = daoProduto.listarPorId(pMarca);
+                ResultSet resultSet = daoProduto.listarPorMarca(pMarca);
             
             defaultTableModel.setRowCount(0);
            while (resultSet.next()){
@@ -142,7 +142,7 @@ public class ListProduto extends javax.swing.JFrame {
         }
     }
     
-    public void listarPorNome(int pNome){
+    public void listarPorNome(String pNome){
         try{
             //Define o model da tabela.
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
@@ -152,7 +152,7 @@ public class ListProduto extends javax.swing.JFrame {
             DaoProduto daoProduto = new DaoProduto();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-                ResultSet resultSet = daoProduto.listarPorId(pNome);
+                ResultSet resultSet = daoProduto.listarPorNome(pNome);
             
             defaultTableModel.setRowCount(0);
            while (resultSet.next()){
@@ -164,6 +164,118 @@ public class ListProduto extends javax.swing.JFrame {
                 String preco = resultSet.getString(6);
                 
                 defaultTableModel.addRow(new Object[]{id, id_categoria, id_marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorDescricao(String pDescricao){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+            
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorDescricao(pDescricao);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String categoria = resultSet.getString(2);
+                String marca = resultSet.getString(3);
+                String nome =  resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, categoria, marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorPrecoMaiorQue(Double pPreco){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+            
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorPrecoMaiorQue(pPreco);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String categoria = resultSet.getString(2);
+                String marca = resultSet.getString(3);
+                String nome =  resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, categoria, marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorPrecoMenorQue(Double pPreco){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+            
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorPrecoMenorQue(pPreco);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String categoria = resultSet.getString(2);
+                String marca = resultSet.getString(3);
+                String nome =  resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, categoria, marca, nome, descricao, preco});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorPrecoIgualA(Double pPreco){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableProduto.getModel();
+            
+            tableProduto.setModel(defaultTableModel);
+
+            DaoProduto daoProduto = new DaoProduto();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoProduto.listarPorPrecoIgualA(pPreco);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String categoria = resultSet.getString(2);
+                String marca = resultSet.getString(3);
+                String nome =  resultSet.getString(4);
+                String descricao =  resultSet.getString(5);
+                String preco = resultSet.getString(6);
+                
+                defaultTableModel.addRow(new Object[]{id, categoria, marca, nome, descricao, preco});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -179,15 +291,15 @@ public class ListProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProduto = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "CATEGORIA", "MARCA", "NOME" }));
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "CATEGORIA", "MARCA", "NOME", "DESCRICAO", "PRECOMAIORQUE", "PRECOMENORQUE", "PRECOIGUALA", " " }));
 
         tableProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,7 +324,12 @@ public class ListProduto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableProduto);
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,14 +337,14 @@ public class ListProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(btnBuscar)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
@@ -236,13 +353,13 @@ public class ListProduto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -254,27 +371,28 @@ public class ListProduto extends javax.swing.JFrame {
                 ModProduto modProduto = new ModProduto();
 
                 modProduto.setid(Integer.parseInt(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 0))));
-                modProduto.setid_marca(Integer.parseInt(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 2))));
+                
                 modProduto.setnome(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 3)));
                 modProduto.setdescricao(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 4)));
                 
                 DaoCategoria daoCategoria = new DaoCategoria();
-                ResultSet resultSet = daoCategoria.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto .getSelectedRow(), 1)));
+                ResultSet resultSetCategoria = daoCategoria.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 1)));
 
-                int pIdcategoria = -1;
-                while(resultSet.next())
-                    pIdcategoria = resultSet.getInt("ID");
+                int id_categoria = -1;
+                while(resultSetCategoria.next())
+                    id_categoria = resultSetCategoria.getInt("ID");
 
-                ModProduto.setid_categoria(pIdcategoria);
+                modProduto.setid_categoria(id_categoria);
                 
                 DaoMarca daoMarca = new DaoMarca();
-                ResultSet resultSet = daoMarca.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto .getSelectedRow(), 2)));
+                
+                ResultSet resultSetMarca = daoMarca.listarPorNome(String.valueOf(tableProduto.getValueAt(tableProduto.getSelectedRow(), 1)));
 
-                int pIdmarca = -2;
-                while(resultSet.next())
-                    pIdmarca = resultSet.getInt("ID");
+                int id_marca = -1;
+                while(resultSetMarca.next())
+                    id_marca = resultSetMarca.getInt("ID");
 
-                ModProduto.setid_Marca(pIdmarca);
+                modProduto.setid_marca(id_marca);
                 
                 DadosTemporarios.tempObject = (ModProduto) modProduto;
 
@@ -285,6 +403,38 @@ public class ListProduto extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_tableProdutoMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId(Integer.parseInt(tfFiltro.getText()));
+                break;
+            case 2:
+                listarPorCategoria(tfFiltro.getText());
+                break;
+            case 3:
+                listarPorMarca(tfFiltro.getText());
+                break;
+            case 4:
+                listarPorNome(tfFiltro.getText());
+                break;
+            case 5:
+                listarPorDescricao(tfFiltro.getText());
+                break;
+            case 6:
+                listarPorPrecoMaiorQue(Double.parseDouble(tfFiltro.getText()));
+                break;
+            case 7:
+                listarPorPrecoMenorQue(Double.parseDouble(tfFiltro.getText()));
+                break;
+            case 8:
+                listarPorPrecoIgualA(Double.parseDouble(tfFiltro.getText()));
+                break;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,10 +472,10 @@ public class ListProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
     private javax.swing.JTable tableProduto;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

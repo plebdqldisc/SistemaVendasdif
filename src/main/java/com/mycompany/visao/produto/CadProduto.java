@@ -26,6 +26,9 @@ public class CadProduto extends javax.swing.JFrame {
     public CadProduto() {
         initComponents();
         
+        carregarMarca();
+        carregarCategoria();
+        
         if(!existeDadosTemporarios()){
             DaoProduto daoProduto = new DaoProduto();
 
@@ -61,15 +64,46 @@ public class CadProduto extends javax.swing.JFrame {
             int id_marca = ((ModProduto) DadosTemporarios.tempObject).getid_marca();
             String nome = ((ModProduto) DadosTemporarios.tempObject).getnome();
             String descricao = ((ModProduto) DadosTemporarios.tempObject).getdescricao();
-            String preco = ((ModProduto) DadosTemporarios.tempObject).getpreco();
+            Double preco = ((ModProduto) DadosTemporarios.tempObject).getpreco();
             
             tfId.setText(String.valueOf(id));
             tfId_categoria.setText(String.valueOf(id_categoria));
             tfId_marca.setText(String.valueOf(id_marca));
             tfNome.setText(nome);
             tfDescricao.setText(descricao);
-            tfPreco.setText(preco);
-        
+            tfPreco.setText(String.valueOf(preco));try{
+                DaoCategoria daoCategoria = new DaoCategoria();
+                ResultSet resultSet = daoCategoria.listarPorId(id_categoria);
+                resultSet.next();
+                String categoria = resultSet.getString("NOME");
+                int index = 0;
+                for(int i = 0; i < jcbCategoria.getItemCount(); i++){
+                    if(jcbCategoria.getItemAt(i).equals(categoria)){
+                        index = i;
+                        break;
+                    }
+                }
+                jcbCategoria.setSelectedIndex(index);
+            }catch(Exception e){}
+            //
+            
+            //
+            try{
+                DaoMarca daoMarca = new DaoMarca();
+                ResultSet resultSet = daoMarca.listarPorId(id_marca);
+                resultSet.next();
+                String marca = resultSet.getString("NOME");
+                int index = 0;
+                for(int i = 0; i < jcbMarca.getItemCount(); i++){
+                    if(jcbMarca.getItemAt(i).equals(marca)){
+                        index = i;
+                        break;
+                    }
+                }
+                jcbMarca.setSelectedIndex(index);
+            }catch(Exception e){}
+            //
+            
             DadosTemporarios.tempObject = null;
             
             return true;
@@ -86,7 +120,7 @@ public class CadProduto extends javax.swing.JFrame {
                 Integer.parseInt(tfId_marca.getText()),
                 tfNome.getText(),
                 tfDescricao.getText(),
-                tfPreco.getText())){
+                Double.parseDouble(tfPreco.getText()))){
             JOptionPane.showMessageDialog(null, "Produto salvo com sucesso!");
             
             tfId.setText("");
@@ -109,10 +143,10 @@ public class CadProduto extends javax.swing.JFrame {
                 Integer.parseInt(tfId_marca.getText()),
                 tfNome.getText(),
                 tfDescricao.getText(),
-                tfPreco.getText())){
+                Double.parseDouble(tfPreco.getText()))){
             JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
             
-            tfId.setText("");
+            tfId.setText(String.valueOf(daoProduto.buscarProximoId()));
             tfId_categoria.setText("");
             tfId_marca.setText("");
             tfNome.setText("");
@@ -363,9 +397,10 @@ public class CadProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbCategoriaItemStateChanged
 
     private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
-        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT)
+        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT){
             inserir();
-        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT)
+            
+        }else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT)
             alterar();
     }//GEN-LAST:event_btnAcaoActionPerformed
 

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 public class DaoProduto extends BancoDeDadosMySql{
     private String sql;
     
-        public Boolean inserir(int id,  int id_categoria, int id_marca, String nome, String descricao, String preco){
+        public Boolean inserir(int id,  int id_categoria, int id_marca, String nome, String descricao, Double preco){
       try{
           sql = "INSERT INTO PRODUTO (id, id_categoria, id_marca, nome, descricao, preco) VALUES (?, ?, ?, ?, ?, ?)";
           
@@ -35,7 +35,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           
           getStatement().setString(5, descricao);
           
-          getStatement().setString(6, preco);
+          getStatement().setDouble(6, preco);
           
           getStatement().executeUpdate();
           
@@ -45,7 +45,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           return false;
       }
   }
-    public Boolean alterar(int id,  int Novoid_categoria, int Novoid_marca, String Novonome, String Novadescricao, String Novopreco){
+    public Boolean alterar(int id,  int Novoid_categoria, int Novoid_marca, String Novonome, String Novadescricao, Double Novopreco){
       try{
           sql = "UPDATE PRODUTO SET ID_CATEGORIA = ?, ID_MARCA = ?, NOME = ?, DESCRICAO = ?, PRECO = ?, WHERE ID = ?";
           
@@ -61,7 +61,7 @@ public class DaoProduto extends BancoDeDadosMySql{
           
           getStatement().setString(5, Novadescricao);
           
-          getStatement().setString(6, Novopreco);
+          getStatement().setDouble(6, Novopreco);
           
           getStatement().executeUpdate();
           
@@ -150,21 +150,20 @@ public class DaoProduto extends BancoDeDadosMySql{
     public ResultSet listarPorCategoria(String categoria){
         try{
             sql = 
-                " SELECT                        " +
-                "   PRO.ID AS ID,               " +
-                "   CAT.NOME AS CATEGORIA,      " +
-                "   MAR.NOME AS MARCA,          " +
-                "   PRO.NOME,                   " +
-                "   PRO.DESCRICAO,              " +    
-                "   PRO.PRECO                   " +  
-                " FROM                          " +
-                "   PRODUTO PRO                 " +
-                " JOIN CATEGORIA CAT ON         " +
-                "   CAT.ID = PRO.ID_CATEGORIA   " +
-                " JOIN MARCA MAR ON             " +
-                "   MAR.ID = PRO.ID_MARCA       " +    
-                " WHERE                         " +
-                "   CAT.NOME LIKE ?             " ;
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,       " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE C.NOME LIKE ?               " ;
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -181,21 +180,20 @@ public class DaoProduto extends BancoDeDadosMySql{
     public ResultSet listarPorMarca(String marca){
         try{
             sql = 
-                " SELECT                        " +
-                "   PRO.ID AS ID,               " +
-                "   CAT.NOME AS CATEGORIA,      " +
-                "   MAR.NOME AS MARCA,          " +
-                "   PRO.NOME,                   " +
-                "   PRO.DESCRICAO,              " +    
-                "   PRO.PRECO                   " +  
-                " FROM                          " +
-                "   PRODUTO PRO                 " +
-                " JOIN CATEGORIA CAT ON         " +
-                "   CAT.ID = PRO.ID_CATEGORIA   " +
-                " JOIN MARCA MAR ON             " +
-                "   MAR.ID = PRO.ID_MARCA       " +    
-                " WHERE                         " +
-                "   MAR.NOME LIKE ?             " ;
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,       " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE M.NOME LIKE ?               " ;
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -212,21 +210,20 @@ public class DaoProduto extends BancoDeDadosMySql{
     public ResultSet listarPorNome(String nome){
         try{
             sql = 
-                " SELECT                        " +
-                "   PRO.ID AS ID,               " +
-                "   CAT.NOME AS CATEGORIA,      " +
-                "   MAR.NOME AS MARCA,          " +
-                "   PRO.NOME,                   " +
-                "   PRO.DESCRICAO,              " +    
-                "   PRO.PRECO                   " +  
-                " FROM                          " +
-                "   PRODUTO PRO                 " +
-                " JOIN CATEGORIA CAT ON         " +
-                "   CAT.ID = PRO.ID_CATEGORIA   " +
-                " JOIN MARCA MAR ON             " +
-                "   MAR.ID = PRO.ID_MARCA       " +    
-                " WHERE                         " +
-                "   PRO.NOME LIKE ?             " ;
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,       " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE P.NOME LIKE ?               " ;
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -239,8 +236,129 @@ public class DaoProduto extends BancoDeDadosMySql{
         
         return getResultado();
     }
+    
+    public ResultSet listarPorDescricao(String descricao){
+        try{
+            sql = 
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,       " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE P.DESCRICAO LIKE ?          " ;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, descricao + "%");
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
+    public ResultSet listarPorPrecoMaiorQue(Double preco){
+        try{
+            sql = 
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,        " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE P.PRECO > ?                 " ;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setDouble(1, preco);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
+    public ResultSet listarPorPrecoMenorQue(Double preco){
+        try{
+            sql = 
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,        " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE P.PRECO < ?                 " ;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setDouble(1, preco);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
+    public ResultSet listarPorPrecoIgualA(Double preco){
+        try{
+            sql = 
+                " SELECT                            " +
+                "   P.ID AS ID,                     " +
+                "   C.NOME AS CATEGORIA,            " +
+                "   M.NOME AS MARCA,                " +
+                "   P.NOME AS NOME,                 " +
+                "   P.DESCRICAO AS DESCRICAO,        " +
+                "   P.PRECO AS PRECO                " +
+                " FROM                              " +
+                "   PRODUTO P                       " +
+                " JOIN CATEGORIA C ON               " +
+                "   C.ID = P.ID_CATEGORIA           " +
+                " JOIN MARCA M ON                   " +
+                "   M.ID = P.ID_MARCA               " +
+                " WHERE P.PRECO = ?                 " ;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setDouble(1, preco);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
+    }
+    
     public int buscarProximoId(){
-        int id = -1;
+        int id = 0;
         
         try{
             sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM PRODUTO";

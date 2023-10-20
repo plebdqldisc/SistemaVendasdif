@@ -14,12 +14,12 @@ public class ModProduto {
     private int id_marca;
     private String nome;
     private String descricao;
-    private String preco;
+    private Double preco;
     
     public ModProduto () {
 }
 
-public ModProduto(int id, int id_categoria, int id_marca, String nome, String descricao, String preco) {
+public ModProduto(int id, int id_categoria, int id_marca, String nome, String descricao, Double preco) {
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_marca = id_marca;
@@ -41,7 +41,7 @@ public ModProduto(int id, int id_categoria, int id_marca, String nome, String de
         return id_categoria;
     }
     
-    public void setid_categoria(int pIdcategoria) {
+    public void setid_categoria(int pId_categoria) {
         this.id_categoria = id_categoria;
     }
     
@@ -69,11 +69,11 @@ public ModProduto(int id, int id_categoria, int id_marca, String nome, String de
         this.descricao = descricao;
     }
     
-    public String getpreco(){
+    public Double getpreco(){
         return preco;
     }
     
-    public void setpreco (String preco) {
+    public void setpreco (Double preco) {
         this.preco = preco;
     }
     
