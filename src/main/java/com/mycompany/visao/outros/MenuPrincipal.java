@@ -12,6 +12,8 @@ import com.mycompany.visao.cidade.CadCidade;
 import com.mycompany.visao.cidade.ListCidade;
 import com.mycompany.visao.estado.CadEstado;
 import com.mycompany.visao.estado.ListEstado;
+import com.mycompany.visao.estadocivil.CadEstadoCivil;
+import com.mycompany.visao.estadocivil.ListEstadoCivil;
 import com.mycompany.visao.marca.CadMarca;
 import com.mycompany.visao.marca.ListMarca;
 import com.mycompany.visao.pais.CadPais;
@@ -51,6 +53,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         menuBar1 = new javax.swing.JMenu();
@@ -60,6 +63,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miCadastroEstado = new javax.swing.JMenuItem();
         miCadastroCidade = new javax.swing.JMenuItem();
         miCadastroProduto = new javax.swing.JMenuItem();
+        miCadastroEstado_Civil = new javax.swing.JMenuItem();
         menuBar2 = new javax.swing.JMenu();
         miConsultaCategoria = new javax.swing.JMenuItem();
         miConsultaMarca = new javax.swing.JMenuItem();
@@ -67,6 +71,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miConsultaEstado = new javax.swing.JMenuItem();
         miConsultaCidade = new javax.swing.JMenuItem();
         miConsultaProduto = new javax.swing.JMenuItem();
+        miConsultaEstado_Civil = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -136,6 +143,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuBar1.add(miCadastroProduto);
 
+        miCadastroEstado_Civil.setText("Estado_Civil");
+        miCadastroEstado_Civil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastroEstado_CivilActionPerformed(evt);
+            }
+        });
+        menuBar1.add(miCadastroEstado_Civil);
+
         menuBar.add(menuBar1);
         menuBar1.getAccessibleContext().setAccessibleDescription("");
 
@@ -188,6 +203,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuBar2.add(miConsultaProduto);
+
+        miConsultaEstado_Civil.setText("Estado_Civil");
+        miConsultaEstado_Civil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultaEstado_CivilActionPerformed(evt);
+            }
+        });
+        menuBar2.add(miConsultaEstado_Civil);
 
         menuBar.add(menuBar2);
 
@@ -291,6 +314,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Formularios.listProduto.setVisible(true);
     }//GEN-LAST:event_miConsultaProdutoActionPerformed
 
+    private void miCadastroEstado_CivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroEstado_CivilActionPerformed
+        if(Formularios.cadEstadoCivil == null)
+            Formularios.cadEstadoCivil = new CadEstadoCivil();
+       
+        Formularios.cadEstadoCivil.setVisible(true);
+    }//GEN-LAST:event_miCadastroEstado_CivilActionPerformed
+
+    private void miConsultaEstado_CivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaEstado_CivilActionPerformed
+        Formularios.listEstadoCivil = new ListEstadoCivil();
+        Formularios.listEstadoCivil.setVisible(true);
+    }//GEN-LAST:event_miConsultaEstado_CivilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +362,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuBar1;
@@ -334,12 +370,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCadastroCategoria;
     private javax.swing.JMenuItem miCadastroCidade;
     private javax.swing.JMenuItem miCadastroEstado;
+    private javax.swing.JMenuItem miCadastroEstado_Civil;
     private javax.swing.JMenuItem miCadastroMarca;
     private javax.swing.JMenuItem miCadastroPais;
     private javax.swing.JMenuItem miCadastroProduto;
     private javax.swing.JMenuItem miConsultaCategoria;
     private javax.swing.JMenuItem miConsultaCidade;
     private javax.swing.JMenuItem miConsultaEstado;
+    private javax.swing.JMenuItem miConsultaEstado_Civil;
     private javax.swing.JMenuItem miConsultaMarca;
     private javax.swing.JMenuItem miConsultaPais;
     private javax.swing.JMenuItem miConsultaProduto;

@@ -297,7 +297,7 @@ public class ListProduto extends javax.swing.JFrame {
         tableProduto = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "CATEGORIA", "MARCA", "NOME", "DESCRICAO", "PRECOMAIORQUE", "PRECOMENORQUE", "PRECOIGUALA", " " }));
 

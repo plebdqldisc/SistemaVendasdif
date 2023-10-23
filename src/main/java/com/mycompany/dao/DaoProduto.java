@@ -47,7 +47,7 @@ public class DaoProduto extends BancoDeDadosMySql{
   }
     public Boolean alterar(int id,  int Novoid_categoria, int Novoid_marca, String Novonome, String Novadescricao, Double Novopreco){
       try{
-          sql = "UPDATE PRODUTO SET ID_CATEGORIA = ?, ID_MARCA = ?, NOME = ?, DESCRICAO = ?, PRECO = ?, WHERE ID = ?";
+          sql = "UPDATE PRODUTO SET ID_CATEGORIA = ?, ID_MARCA = ?, NOME = ?, DESCRICAO = ?, PRECO = ? WHERE ID = ?";
           
           setStatement(getConexao().prepareStatement(sql));
           

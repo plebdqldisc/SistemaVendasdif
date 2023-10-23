@@ -4,6 +4,13 @@
  */
 package com.mycompany.visao.estadocivil;
 
+import com.mycompany.dao.DaoEstadoCivil;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.modelo.ModEstadoCivil;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author arthur.7923
@@ -15,6 +22,83 @@ public class ListEstadoCivil extends javax.swing.JFrame {
      */
     public ListEstadoCivil() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        listarTodos();
+    }
+    
+     public void listarTodos(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
+            
+            tableEstadoCivil.setModel(defaultTableModel);
+
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoEstadoCivil.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                defaultTableModel.addRow(new Object[]{id, nome });
+            }
+            
+        }catch(Exception e){
+            
+        }
+    }
+     
+     public void listarPorId(int pId){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
+
+            tableEstadoCivil.setModel(defaultTableModel);
+
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoEstadoCivil.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                defaultTableModel.addRow(new Object[]{id, nome});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNome(String pNome){
+        try{
+            //Define o model da tabela.
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
+            
+            tableEstadoCivil.setModel(defaultTableModel);
+
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoEstadoCivil.listarPorNome(pNome);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                
+                defaultTableModel.addRow(new Object[]{id, nome});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -33,7 +117,12 @@ public class ListEstadoCivil extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         tfFiltro = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME" }));
 
@@ -44,10 +133,28 @@ public class ListEstadoCivil extends javax.swing.JFrame {
             new String [] {
                 "ID", "NOME"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableEstadoCivil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableEstadoCivilMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableEstadoCivil);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,6 +208,38 @@ public class ListEstadoCivil extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableEstadoCivilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEstadoCivilMouseClicked
+        if (evt.getClickCount() == 2){
+            ModEstadoCivil modEstadoCivil = new ModEstadoCivil();
+
+            modEstadoCivil.setId(Integer.parseInt(String.valueOf(tableEstadoCivil.getValueAt(tableEstadoCivil.getSelectedRow(), 0))));
+            modEstadoCivil.setNome(String.valueOf(tableEstadoCivil.getValueAt(tableEstadoCivil.getSelectedRow(), 1)));
+
+            DadosTemporarios.tempObject = (ModEstadoCivil) modEstadoCivil;
+
+            CadEstadoCivil cadEstadoCivil = new CadEstadoCivil();
+            cadEstadoCivil.setVisible(true);
+        }
+    }//GEN-LAST:event_tableEstadoCivilMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId(Integer.parseInt(tfFiltro.getText()));
+                break;
+            case 2:
+                listarPorNome(tfFiltro.getText());
+                break;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.listEstadoCivil = null;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
