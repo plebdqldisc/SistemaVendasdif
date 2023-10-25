@@ -134,6 +134,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfId_cidade">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfId_cidadeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -186,7 +189,7 @@
                 <StringItem index="7" value="Mar del Plata"/>
                 <StringItem index="8" value="Sydney"/>
                 <StringItem index="9" value="Mumbai"/>
-                <StringItem index="10" value="Monterrey"/>
+                <StringItem index="10" value="Monterrey "/>
                 <StringItem index="11" value="Munique"/>
               </StringArray>
             </Property>

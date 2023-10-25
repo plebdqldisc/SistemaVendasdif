@@ -191,6 +191,12 @@ public class CadEndereco extends javax.swing.JFrame {
 
         jLabel2.setText("ID_CIDADE");
 
+        tfId_cidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfId_cidadeActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("RUA");
 
         jLabel4.setText("CEP");
@@ -211,7 +217,7 @@ public class CadEndereco extends javax.swing.JFrame {
             }
         });
 
-        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joinville", "Campinas", "São Francisco", "Houston", "Montreal", "Saint-Denis", "Adachi", "Mar del Plata", "Sydney", "Mumbai", "Monterrey", "Munique" }));
+        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joinville", "Campinas", "São Francisco", "Houston", "Montreal", "Saint-Denis", "Adachi", "Mar del Plata", "Sydney", "Mumbai", "Monterrey ", "Munique" }));
         jcbCidade.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbCidadeItemStateChanged(evt);
@@ -321,6 +327,10 @@ public class CadEndereco extends javax.swing.JFrame {
         if(escolha == JOptionPane.YES_OPTION)
             excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tfId_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfId_cidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfId_cidadeActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,7 +16,7 @@ public class DaoEndereco extends BancoDeDadosMySql{
     
         public Boolean inserir(int id,  int id_cidade, String rua, String cep, String num_resid){
       try{
-          sql = "INSERT INTO PRODUTO (id, id_cidade, nome_rua, cep, numero_residencia) VALUES (?, ?, ?, ?, ?)";
+          sql = "INSERT INTO ENDERECO(id, id_cidade, nome_rua, cep, numero_residencia) VALUES (?, ?, ?, ?, ?)";
           
           setStatement(getConexao().prepareStatement(sql));
           
@@ -40,7 +40,7 @@ public class DaoEndereco extends BancoDeDadosMySql{
   }
     public Boolean alterar(int id,  int novaid_cidade, String novorua, String novocep, String novonum_resid){
       try{
-          sql = "UPDATE PRODUTO SET ID_CIDADE = ?, NOME_RUA = ?, CEP = ?, NUMERO_RESIDENCIA = ? WHERE ID = ?";
+          sql = "UPDATE ENDERECO SET ID_CIDADE = ?, NOME_RUA = ?, CEP = ?, NUMERO_RESIDENCIA = ? WHERE ID = ?";
           
           setStatement(getConexao().prepareStatement(sql));
           
@@ -65,7 +65,7 @@ public class DaoEndereco extends BancoDeDadosMySql{
     
     public Boolean excluir(int id){
         try{
-            sql = "DELETE FROM PRODUTO WHERE ID = ?";
+            sql = "DELETE FROM ENDERECO WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             

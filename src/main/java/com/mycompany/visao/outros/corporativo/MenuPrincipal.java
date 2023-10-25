@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.visao.outros;
+package com.mycompany.visao.outros.corporativo;
 
 import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.ferramentas.Formularios;
@@ -10,6 +10,8 @@ import com.mycompany.visao.categoria.CadCategoria;
 import com.mycompany.visao.categoria.ListCategoria;
 import com.mycompany.visao.cidade.CadCidade;
 import com.mycompany.visao.cidade.ListCidade;
+import com.mycompany.visao.endereco.CadEndereco;
+import com.mycompany.visao.endereco.ListEndereco;
 import com.mycompany.visao.estado.CadEstado;
 import com.mycompany.visao.estado.ListEstado;
 import com.mycompany.visao.estadocivil.CadEstadoCivil;
@@ -64,6 +66,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miCadastroCidade = new javax.swing.JMenuItem();
         miCadastroProduto = new javax.swing.JMenuItem();
         miCadastroEstado_Civil = new javax.swing.JMenuItem();
+        miCadastroEndereco = new javax.swing.JMenuItem();
         menuBar2 = new javax.swing.JMenu();
         miConsultaCategoria = new javax.swing.JMenuItem();
         miConsultaMarca = new javax.swing.JMenuItem();
@@ -72,6 +75,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miConsultaCidade = new javax.swing.JMenuItem();
         miConsultaProduto = new javax.swing.JMenuItem();
         miConsultaEstado_Civil = new javax.swing.JMenuItem();
+        miConsultaEndereco = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -151,6 +155,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuBar1.add(miCadastroEstado_Civil);
 
+        miCadastroEndereco.setText("Endereco");
+        miCadastroEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastroEnderecoActionPerformed(evt);
+            }
+        });
+        menuBar1.add(miCadastroEndereco);
+
         menuBar.add(menuBar1);
         menuBar1.getAccessibleContext().setAccessibleDescription("");
 
@@ -211,6 +223,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuBar2.add(miConsultaEstado_Civil);
+
+        miConsultaEndereco.setText("Endereco");
+        miConsultaEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultaEnderecoActionPerformed(evt);
+            }
+        });
+        menuBar2.add(miConsultaEndereco);
 
         menuBar.add(menuBar2);
 
@@ -326,6 +346,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Formularios.listEstadoCivil.setVisible(true);
     }//GEN-LAST:event_miConsultaEstado_CivilActionPerformed
 
+    private void miCadastroEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroEnderecoActionPerformed
+        if(Formularios.cadEndereco == null)
+            Formularios.cadEndereco = new CadEndereco();
+        
+        Formularios.cadEndereco.setVisible(true);
+    }//GEN-LAST:event_miCadastroEnderecoActionPerformed
+
+    private void miConsultaEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaEnderecoActionPerformed
+        Formularios.listEndereco = new ListEndereco();
+        Formularios.listEndereco.setVisible(true);
+    }//GEN-LAST:event_miConsultaEnderecoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -369,6 +401,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuBar2;
     private javax.swing.JMenuItem miCadastroCategoria;
     private javax.swing.JMenuItem miCadastroCidade;
+    private javax.swing.JMenuItem miCadastroEndereco;
     private javax.swing.JMenuItem miCadastroEstado;
     private javax.swing.JMenuItem miCadastroEstado_Civil;
     private javax.swing.JMenuItem miCadastroMarca;
@@ -376,6 +409,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCadastroProduto;
     private javax.swing.JMenuItem miConsultaCategoria;
     private javax.swing.JMenuItem miConsultaCidade;
+    private javax.swing.JMenuItem miConsultaEndereco;
     private javax.swing.JMenuItem miConsultaEstado;
     private javax.swing.JMenuItem miConsultaEstado_Civil;
     private javax.swing.JMenuItem miConsultaMarca;

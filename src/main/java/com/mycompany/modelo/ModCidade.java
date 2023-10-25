@@ -48,6 +48,6 @@ public ModCidade(int id, int id_estado, String nome) {
     }
     @Override
     public String toString() {
-        return "Pais{" + "id=" + id + ", id_estado=" + id_estado + ", nome=" + nome + '}';
+        return "Cidade{" + "id=" + id + ", id_estado=" + id_estado + ", nome=" + nome + '}';
     }
 }
