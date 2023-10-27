@@ -14,9 +14,9 @@ import java.sql.ResultSet;
 public class DaoPessoa extends BancoDeDadosMySql{
     String sql;
     
-    public Boolean inserir(int id, int Id_endereco, int Id_estadocivil, String nome, String sobrenome, String genero, String telefone, String email){
+    public Boolean inserir(int id, int Id_endereco, int Id_estadocivil, String nome, String sobrenome, String genero, String telefone, String email, String usuario, String senha){
         try{
-            sql = "INSERT INTO PESSOA (ID, ID_ENDERECO, ID_ESTADO_CIVIL, NOME, SOBRENOME, GENERO, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO PESSOA (ID, ID_ENDERECO, ID_ESTADO_CIVIL, NOME, SOBRENOME, GENERO, TELEFONE, EMAIL, USUARIO, SENHA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -28,6 +28,8 @@ public class DaoPessoa extends BancoDeDadosMySql{
             getStatement().setString(6, genero);
             getStatement().setString(7, telefone);
             getStatement().setString(8, email);
+            getStatement().setString(9, usuario);
+            getStatement().setString(10, senha);
             
             getStatement().executeUpdate();
             
@@ -38,13 +40,13 @@ public class DaoPessoa extends BancoDeDadosMySql{
         }
     }
     
-    public Boolean alterar(int id, int Id_endereco, int Id_estadocivil, String nome, String sobrenome, String genero, String telefone, String email){
+    public Boolean alterar(int id, int Id_endereco, int Id_estadocivil, String nome, String sobrenome, String genero, String telefone, String email, String usuario, String senha){
         try{
-            sql = "UPDATE PESSOA SET ID_ENDERECO = ?, ID_ESTADO_CIVIL = ?, NOME = ?, SOBRENOME = ?, GENERO = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
+            sql = "UPDATE PESSOA SET ID_ENDERECO = ?, ID_ESTADO_CIVIL = ?, NOME = ?, SOBRENOME = ?, GENERO = ?, TELEFONE = ?, EMAIL = ?, USUARIO, SENHA WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(8, id);
+            getStatement().setInt(10, id);
             getStatement().setInt(1, Id_endereco);
             getStatement().setInt(2, Id_estadocivil);
             getStatement().setString(3, nome);
@@ -52,6 +54,8 @@ public class DaoPessoa extends BancoDeDadosMySql{
             getStatement().setString(5, genero);
             getStatement().setString(6, telefone);
             getStatement().setString(7, email);
+            getStatement().setString(8, usuario);
+            getStatement().setString(9, senha);
             
             getStatement().executeUpdate();
             
@@ -174,7 +178,7 @@ public class DaoPessoa extends BancoDeDadosMySql{
                 "   C.ID = E.ID_CIDADE              " +
                 " JOIN ESTADO_CIVIL EC ON           " +
                 "   EC.ID = P.ID_ESTADO_CIVIL       " +
-                " WHERE E.RUA LIKE ?                " ;
+                " WHERE NOME_RUA LIKE ?             " ;
             
             setStatement(getConexao().prepareStatement(sql));
             

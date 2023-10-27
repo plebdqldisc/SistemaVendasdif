@@ -16,6 +16,9 @@ public class ModPessoa {private int id;
     private String genero;
     private String telefone;
     private String email;
+    private String usuario;
+    private String senha;
+
 
     public ModPessoa(int id, int Id_endereco, int Id_estadocivil, String nome, String sobrenome, String genero, String telefone, String email) {
         this.id = id;
