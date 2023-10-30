@@ -37,4 +37,10 @@ public class Formularios {
     
         public static JFrame cadPessoa;
     public static JFrame listPessoa;
+    
+        public static JFrame cadPedido;
+    public static JFrame listPedido;
+    
+        public static JFrame TelaDeLogin;
+    public static JFrame TelaDeCadastro;
 }
