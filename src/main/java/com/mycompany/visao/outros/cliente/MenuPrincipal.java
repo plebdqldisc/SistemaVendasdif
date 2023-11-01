@@ -60,11 +60,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
+            .addGap(0, 888, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         jMenu3.setBackground(new java.awt.Color(255, 153, 102));
@@ -78,63 +78,83 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setBackground(new java.awt.Color(255, 153, 102));
+        jMenu4.setForeground(new java.awt.Color(255, 51, 0));
         jMenu4.setText("Roupas");
+        jMenu4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem2.setText("Calvin Klein");
         jMenu4.add(jMenuItem2);
 
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setForeground(new java.awt.Color(255, 51, 0));
         jMenu5.setText("Alimentos");
+        jMenu5.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem3.setText("Mondelez");
         jMenu5.add(jMenuItem3);
 
         jMenuBar1.add(jMenu5);
 
+        jMenu6.setForeground(new java.awt.Color(255, 51, 0));
         jMenu6.setText("Bebidas");
+        jMenu6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
 
         jMenuItem4.setText("Coca-Cola");
         jMenu6.add(jMenuItem4);
 
         jMenuBar1.add(jMenu6);
 
+        jMenu7.setForeground(new java.awt.Color(255, 51, 0));
         jMenu7.setText("Móveis");
+        jMenu7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem5.setText("Herman Miller");
         jMenu7.add(jMenuItem5);
 
         jMenuBar1.add(jMenu7);
 
+        jMenu8.setForeground(new java.awt.Color(255, 51, 0));
         jMenu8.setText("Brinquedos");
+        jMenu8.setFocusable(false);
+        jMenu8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
 
         jMenuItem6.setText("Mattel");
         jMenu8.add(jMenuItem6);
 
         jMenuBar1.add(jMenu8);
 
+        jMenu9.setForeground(new java.awt.Color(255, 51, 0));
         jMenu9.setText("Art. Esportivos");
+        jMenu9.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem7.setText("Nike");
         jMenu9.add(jMenuItem7);
 
         jMenuBar1.add(jMenu9);
 
+        jMenu10.setForeground(new java.awt.Color(255, 51, 0));
         jMenu10.setText("Beleza");
+        jMenu10.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem8.setText("L'Oréal");
         jMenu10.add(jMenuItem8);
 
         jMenuBar1.add(jMenu10);
 
+        jMenu1.setForeground(new java.awt.Color(255, 51, 0));
         jMenu1.setText("Livros");
+        jMenu1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem9.setText("Panini");
         jMenu1.add(jMenuItem9);
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setForeground(new java.awt.Color(255, 51, 0));
         jMenu2.setText("Ferramentas");
+        jMenu2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jMenuItem10.setText("Makita");
         jMenu2.add(jMenuItem10);
@@ -142,6 +162,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         miEntrarCliente.setText("Login");
+        miEntrarCliente.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
 
         miCadastrarCliente.setText("CADASTRAR-SE");
         miCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
